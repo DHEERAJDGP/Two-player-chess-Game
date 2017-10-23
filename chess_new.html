@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+table{background-color:white;}
+
+table,td {
+           border:.25px solid black;
+         }
+ 
+ td:hover {
+               background-color:Salmon  ;
+	           cursor:pointer;
+	      }
+
+
+</style>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+ 
+   var sou_ar;
+   var des_ar;  
+   var cl=0;
+   var clr;
+   
+   function sou(l)  //this function is use for source
+  {   
+      if(cl==0 && document.getElementById(l).innerHTML!="" )
+	  { 
+         sou_ar=l;
+		 cl++;
+		 clr=document.getElementById(l).bgColor;
+		 document.getElementById(l).bgColor="Salmon";
+		 
+	}
+  }
+   
+   
+   function clear_sel() //this function is use for clear_selection
+   {
+    document.getElementById(sou_ar).bgColor=clr;
+	cl=0;
+   }
+   
+   
+    function path() //this function is use for check (pieces)source_id
+   {
+   
+     //var x=document.getElementById(sou_ar).textContent;
+	 var x=document.getElementById(sou_ar).firstChild.id;
+	  
+	 alert(x);
+	 //alert(document.getElementById("op_val").value);
+    
+    
+   }
+   
+  
+   
+  function des(m) //this function is use for destination
+  {  
+    if(cl==1)
+   {
+     des_ar=m;
+	 change(sou_ar,des_ar);
+	 
+   }
+	
+  }
+  
+ 
+  
+  
+   function change(a,b) //this function is use for swapping
+  {   
+      //alert(a);
+	  if(document.getElementById(a).innerHTML!="" && a!=b  )
+        { 
+		   
+		  var obj1=document.getElementById(a);
+		  var obj2=document.getElementById(b);
+		  
+		  var move_out=obj2.textContent;
+		  
+	      obj2.innerHTML=obj1.innerHTML;
+	      obj1.innerHTML="";
+		  cl=0;
+		  document.getElementById(a).bgColor=clr;
+		  var tt=document.getElementById(b).firstChild.id; //this is use for get child_id of destination
+		  var pp=document.getElementById(tt).innerHTML;    //this is use for get content of child_id
+		  if(document.getElementById(b).firstChild.id>=1 && document.getElementById(b).firstChild.id<=18)  // condition for compare whether it is black or white 
+		    {
+		     document.getElementById('output').innerHTML=document.getElementById('output').innerHTML+"<b>"+pp+"W-Source to Destination("+"</b>"+a+"->>"+b+")"+"<br>";
+			 if(move_out!="")
+			 document.getElementById('moves_out').innerHTML=document.getElementById('moves_out').innerHTML+"<b>"+move_out;
+		    }
+		  else
+		  {
+		   
+		  document.getElementById('output').innerHTML=document.getElementById('output').innerHTML+"<b>"+pp+"B-Source to Destination("+"</b>"+a+"->>"+b+")"+"<br>";
+		  if(move_out!="")
+		  document.getElementById('moves_out').innerHTML=document.getElementById('moves_out').innerHTML+"<b>"+move_out;
+		  }
+		 
+		 }
+		
+  }
+  
+
+
+  
+function startTime() 
+{   
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('time').innerHTML ="Time "+ h + ":" + m + ":" + s;
+	
+    var t = setTimeout(startTime, 500);
+}
+
+function checkTime(i) 
+{
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+</script>
+
+</head>
+
+
+<body onload="startTime()" style="background-color:Thistle;" >
+
+<div style="background-color:Khaki;width:23%;margin-top:8%;margin-left:1%;float:left;"><br>
+ <div style="background-color:Orchid  ">
+	 <fieldset>TWO PLAYER CHESS GAME
+     </fieldset>    
+</div>
+	
+<div style="background-color:LightPink "><fieldset>
+<legend>RULES:--</legend>
+Rule-1: Press Single Click for Selection.<br>
+Rule-2: Press Double click for move &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on Destination.
+
+<br><br>
+</fieldset>
+</div>	
+	<br>
+<span style="background-color:YellowGreen  ">&nbsp;&nbsp;Press for Restart the Game :<button onClick="location.reload()"> Restart</button></span>	<br>		 
+<span style="background-color:YellowGreen ">&nbsp;&nbsp;Press for clear_selection :<button onClick="clear_sel()">Clear</button></span> <br>
+<span style="background-color:OrangeRed">&nbsp;&nbsp;Press for check_ID :<button onClick="path()">Check</button></span>			 
+</div>
+
+<div style="width:23%; float:right; margin-right:1%; background-color:SandyBrown ; height:40%;">
+
+<div style="float:right;margin-right:27%;background-color:YellowGreen;width:42%;margin-top:2%; padding-bottom:2%; text-align:center;" id="time">
+</div>
+<br> <br><fieldset>
+<div style="margin-left:-2%;overflow-y:scroll; height:200px;background-color:Plum ;">MOVES:<br><p id="output" > </p>
+</div></fieldset>
+<br>
+<fieldset>
+<div style="margin-left:-2%;overflow-y:scroll; height:100px;background-color:yellow; font-size:200%;"><p id="moves_out" > </p>
+</div></fieldset><br>
+</div>
+
+<center>
+<table style="float:left; margin-left:3%;">
+
+<!-- row name -->
+     <tr style="text-align:center; background-color:yellow;">
+          <td height="10px" width="10px" style="background-color:red;"></td>
+	      <td height="10px" width="70px">1</td>
+	      <td height="10px" width="70px">2</td>
+	      <td height="10px" width="70px">3</td>
+	      <td height="10px" width="70px">4</td>
+	      <td height="10px" width="70px">5</td>
+	      <td height="10px" width="70px">6</td>
+	      <td height="10px" width="70px">7</td>
+	      <td height="10px" width="70px">8</td>
+     </tr>
+<!-- row name-->
+
+
+
+ <!-- white part -->
+    <tr style="text-align:center;">
+	     <td align="center" height="70px" width="10px" bgcolor="yellow">A</td>  <!-- column name -->
+         <td align="center" height="70px" width="70px" id="A1" onClick="sou('A1')" ondblClick="des('A1')" ><font size="70px" id="1" >&#9814; </font> </td> <!-- rock -->
+         <td align="center" bgcolor="gray"height="70px" width="70px" id="A2" onClick="sou('A2')" ondblClick="des('A2')" ><font id="2"size="70px">&#9816; </font></td> <!-- knight -->
+	     <td align="center" height="70px" width="70px" id="A3" onClick="sou('A3')" ondblClick="des('A3')" ><font id="3"size="70px" >&#9815; </font></td><!-- bishop -->
+	     <td align="center" bgcolor="gray" height="70px" width="70px" id="A4" onClick="sou('A4')" ondblClick="des('A4')"><font id="4"size="70px">&#9813; </font></td><!-- queen -->
+	     <td align="center" height="70px" width="70px" id="A5" ondblClick="des('A5')" onClick="sou('A5')"><font id="5" size="70px">&#9812; </font> </td> <!-- king -->
+	     <td align="center" bgcolor="gray"height="70px" width="70px" id="A6" ondblClick="des('A6')" onClick="sou('A6')"><font id="6" size="70px"> &#9815; </font> </td> <!--bishop -->
+	     <td align="center" height="70px" width="70px" id="A7" ondblClick="des('A7')" onClick="sou('A7')"><font id="7" size="80px">&#9816; </font></td> <!-- knight-->
+	     <td align="center" bgcolor="gray"height="70px" width="70px" id="A8" ondblClick="des('A8')" onClick="sou('A8')"><font id="8" size="70px">&#9814; </font></td> <!-- rock -->
+	  
+    </tr>
+  
+  
+    <tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow">B</td>  <!-- column name -->
+         <td bgcolor="gray"align="center" height="70px" width="70px" id="B1" onClick="sou('B1')" ondblClick="des('B1')"><font id="11"size="70px">&#9817; </font></td><!-- pawn -->
+         <td align="center" height="70px" width="70px" id="B2" onClick="sou('B2')"  ondblClick="des('B2')" ><font id="12" size="70px">&#9817;  </font></td> <!-- pawn -->
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="B3" onClick="sou('B3')"  ondblClick="des('B3')" ><font id="13" size="70px">&#9817; </font></td><!-- pawn -->
+	     <td align="center" height="70px" width="70px" id="B4"  ondblClick="des('B4')" onClick="sou('B4')"><font id="14" size="70px">&#9817;</font></td> <!-- pawn -->
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="B5" onClick="sou('B5')" ondblClick="des('B5')"><font id="15" size="70px">&#9817; </font></td> <!-- pawn -->
+	     <td align="center" height="70px" width="70px"id="B6" ondblClick="des('B6')" onClick="sou('B6')"><font id="16" size="70px">&#9817; </font></td> <!-- pawn -->
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="B7" onClick="sou('B7')" ondblClick="des('B7')"><font id="17" size="70px">&#9817; </font></td> <!-- pawn -->
+	     <td align="center" height="70px" width="70px" id="B8" ondblClick="des('B8')" onClick="sou('B8')"><font id="18" size="70px">&#9817; </font></td> <!-- pawn -->
+			 
+    </tr>
+<!-- white part-->
+ 
+    <tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow" >C</td>  <!-- column name -->
+         <td height="70px" width="70px" id="C1" onClick="sou('C1')" ondblClick="des('C1')"></td>
+         <td bgcolor="gray" align="center" height="70px" width="70px" id="C2" onClick="sou('C2')" ondblClick="des('C2')" ></td>
+	     <td height="70px" width="70px" id="C3" ondblclick="des('C3')" ondblClick="des('C3')" ></td>
+	     <td bgcolor="gray"height="70px" width="70px" id="C4" onClick="sou('C4')" ondblClick="des('C4')"></td>
+	     <td height="70px" width="70px" id="C5" onClick="sou('C5')" ondblClick="des('C5')"></td>
+	     <td bgcolor="gray" height="70px" width="70px" id="C6" onClick="sou('C6')" ondblclick="des('C6')"></td>
+	     <td height="70px" width="70px" id="C7" onClick="sou('C7')" ondblClick="des('C7')"></td>
+	     <td bgcolor="gray"height="70px" width="70px" id="C8" onClick="sou('C8')" ondblClick="des('C8')">  </td>
+    </tr>
+    
+	<tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow" >D</td>  <!-- column name -->
+         <td <td bgcolor="gray"  height="70px" width="70px" id="D1" onClick="sou('D1')" ondblClick="des('D1')"></td>
+         <td height="70px" width="70px"id="D2" onClick="sou('D2')" ondblClick="des('D2')" ></td>
+	     <td <td bgcolor="gray"height="70px" width="70px" id="D3" onClick="sou('D3')" ondblClick="des('D3')"></td>
+	     <td height="70px" width="70px" id="D4" onClick="sou('D4')" ondblClick="des('D4')"></td>
+	     <td <td bgcolor="gray" height="70px" width="70px" id="D5"  onClick="sou('D5')" ondblClick="des('D5')"></td>
+	     <td height="70px" width="70px" id="D6" onClick="sou('D6')" ondblClick="des('D6')"></td>
+	     <td <td bgcolor="gray" height="70px" width="70px" id="D7" onClick="sou('D7')" ondblClick="des('D7')"></td>
+	     <td height="70px" width="70px" id="D8" onClick="sou('D8')" ondblClick="des('D8')"></td>
+    </tr>
+	
+	<tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow">E</td>  <!-- column name -->
+         <td height="70px" width="70px" id="E1" onClick="sou('E1')" ondblClick="des('E1')"></td>
+         <td bgcolor="gray"  height="70px" width="70px" id="E2" onClick="sou('E2')" ondblClick="des('E2')"></td>
+	     <td height="70px" width="70px" id="E3" onClick="sou('E3')" ondblClick="des('E3')"></td>
+	     <td bgcolor="gray" height="70px" width="70px"  id="E4" onClick="sou('E4')" ondblClick="des('E4')"></td>
+	     <td height="70px" width="70px" id="E5" onClick="sou('E5')" ondblClick="des('E5')" ></td>
+	     <td bgcolor="gray"  height="70px" width="70px" id="E6" onClick="sou('E6')" ondblClick="des('E6')"></td>
+	     <td  height="70px" width="70px" id="E7" onClick="sou('E7')" ondblClick="des('E7')"></td>
+	     <td bgcolor="gray"  height="70px" width="70px" id="E8"onClick="sou('E8')" ondblClick="des('E8')" ></td>
+    </tr>
+	
+	<tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow">F</td>  <!-- column name -->
+         <td bgcolor="gray" align="center" height="70px" width="70px" id="F1" onClick="sou('F1')" ondblClick="des('F1')" ></td>
+         <td align="center" height="70px" width="70px"  id="F2" onClick="sou('F2')" ondblClick="des('F2')"></td>
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="F3" onClick="sou('F3')" ondblClick="des('F3')" ></td>
+	     <td align="center" height="70px" width="70px" id="F4"onClick="sou('F4')" ondblClick="des('F4')"></td>
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="F5"onClick="sou('F5')" ondblClick="des('F5')" ></td>
+	     <td align="center" height="70px" width="70px" id="F6" onClick="sou('F6')" ondblClick="des('F6')"></td>
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="F7" onClick="sou('F7')" ondblClick="des('F7')"></td>
+         <td align="center" height="70px" width="70px" id="F8" onClick="sou('F8')" ondblClick="des('F8')"></td>
+				
+    </tr>
+	
+	
+<!-- black part -->
+	<tr style="text-align:center">
+	     <td height="70px" width="20px" bgcolor="yellow">G</td>  <!-- column name -->
+         <td align="center" height="70px" width="70px" id="G1" onClick="sou('G1')" ondblClick="des('G1')"><font id="21" size="70px"> &#9823; </font></td> <!-- pawn -->
+         <td  bgcolor="gray" align="center" height="70px" width="70px" id="G2" onClick="sou('G2')" ondblClick="des('G2')"><font id="22" size="70px"> &#9823; </font></td> <!-- pawn -->
+	     <td align="center" height="70px" width="70px" id="G3" onClick="sou('G3')" ondblClick="des('G3')" ><font id="23"size="70px"> &#9823; </font></td> <!-- pawn -->
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="G4" onClick="sou('G4')" ondblClick="des('G4')"><font id="24" size="70px"> &#9823; </font></td> <!-- pawn -->
+		 <td  align="center"height="70px" width="70px" id="G5" onClick="sou('G5')" ondblClick="des('G5')"><font id="25" size="70px"> &#9823; </font></td> <!-- pawn -->
+		 <td bgcolor="gray" align="center" height="70px" width="70px" id="G6" onClick="sou('G6')" ondblClick="des('G6')"><font id="26" size="70px"> &#9823; </font></td> <!-- pawn -->
+	     <td  align="center" height="70px" width="70px" id="G7" onClick="sou('G7')" ondblClick="des('G7')"><font id="27" size="70px"> &#9823; </font></td> <!-- pawn -->
+	     <td bgcolor="gray" align="center" height="70px" width="70px" id="G8" onClick="sou('G8')" ondblClick="des('G8')" ><font id="28" size="70px"> &#9823; </font></td> <!-- pawn -->
+    </tr>
+	<tr style="text-align:center">
+	     <td height="70px" width="10px" bgcolor="yellow">H</td>  <!-- column name -->
+         <td bgcolor="gray" align="center" height="70px" width="70px" id="H1" onClick="sou('H1')" ondblClick="des('H1')"><font id="31"size="70px"> &#9820; </font></td> <!-- rock -->
+         <td  align="center" height="70px" width="70px"id="H2" onClick="sou('H2')" ondblClick="des('H2')"><font id="32" size="70px" > &#9822; </font></td> <!-- knight -->
+	     <td bgcolor="gray" align="center"height="70px" width="70px" id="H3" onClick="sou('H3')" ondblClick="des('H3')" ><font id="33" size="70px"> &#9821; </font></td> <!-- bishop -->
+	     <td  align="center" height="70px" width="70px" id="H4" onClick="sou('H4')" ondblClick="des('H4')"><font id="34" size="70px"> &#9819; </font></td> <!-- queen -->
+		 <td bgcolor="gray" align="center"height="70px" width="70px" id="H5" onClick="sou('H5')" ondblClick="des('H5')" ><font id="35" size="70px"> &#9818; </font></td> <!-- king -->
+		 <td  align="center" height="70px" width="70px" id="H6" onClick="sou('H6')" ondblClick="des('H6')"><font id="36" size="70px"> &#9821; </font></td> <!-- bishop -->
+		 <td bgcolor="gray" align="center" height="70px" width="70px" id="H7" onClick="sou('H7')" ondblClick="des('H7')"><font id="37" size="70px">&#9822; </font></td> <!-- knight -->
+	     <td  align="center" height="70px" width="70px" id="H8" onClick="sou('H8')" ondblClick="des('H8')" ><font id="38" size="70px"> &#9820; </font></td> <!-- rock-->
+    </tr>
+ <!-- black part -->
+</table>
+</center>
+</body>
+</html>
